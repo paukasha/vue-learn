@@ -1,49 +1,33 @@
-const App = {
-  data() {
-    return {
-      title: 'Список заметок',
-      placeholderString: 'Введите название заметки',
-      inputValue: '',
-      notes: ['Заметка 1', 'Заметка 2', 'Заметка 100500']
+Vue.createApp({
+  data: () => ({
+    title: 'I am Darya',
+    myHtml: '<h1>Vue 3 app</h1>',
+    person: {
+      firstName: 'Darya',
+      lastName: 'Pavlenko',
+      age: 18
+    },
+    items: [1, 2, 3, 4, 5, 6]
+  }),
+  computed: {
+    evenItems() {
+      return this.items.filter(i => i % 2 === 0)
     }
   },
   methods: {
-    inputChangeHandler(event) {
-      this.inputValue = event.target.value
+    stopPropogation(event) {
+      event.stopPropagation()
     },
-    addNewNote() {
-      if (this.inputValue !== '') {
-        this.notes.push(this.inputValue)
-        this.inputValue = ''
-      }
+    addItem(event) {
+      this.items.unshift(this.$refs.myInput.value)
+      this.$refs.myInput.value = ''
+      console.log(event.key)
     },
-    inputKeyPress(event) {
-     if (event.key === 'Enter') {
-       this.addNewNote()
-     }
+    remove(i) {
+      this.items.splice(i, 1)
     },
-    deleteNote(index) {
-      this.notes.splice(index, 1)
-    },
-    toUpperCase(item) {
-      return item.toUpperCase();
-    },
-    doubleCount() {
-      return this.notes.length*2
-    }
-  },
-  computed: {
-    doubleCountComputed() {
-      return this.notes.length*2
-    }
-  },
-  watch: {
-    inputValue(value) {
-      if (value.length > 10) {
-        this.inputValue=''
-      }
+    log(item) {
+      console.log('Lof item: ', item)
     }
   }
-}
-
-Vue.createApp(App).mount('#vue-app')
+}).mount('#vue-app')
