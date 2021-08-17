@@ -6,60 +6,52 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 </head>
 <body>
-<div id="hello-vue" class="demo">
- Counter: {{counter}}
-</div>
-<div id="bind-attribute">
-  <span v-bind:title="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, quae.</span>
+<hr>
+<div class="container">
+  <a href="http://js.dmitrylavrik.ru/vue/" target="_blank">Курс по Vue.js</a>
 </div>
 <hr>
-<div id="cicle-if">
-  <span v-if="seen">Now you see me</span>
+<div class="container">
+  <div class="sample">
+    <button class="btn btn-primary"
+            v-on:click="showRes = !showRes"
+    >
+      {{ btnText }}
+    </button>
+    <hr>
+    <app-progress v-bind:val="sum"
+                  v-bind:max="maxNumbers * 5">
+    </app-progress>
+    <hr>
+    <transition name="slide">
+      <h2 v-show="showRes" class="alert alert-success">Your profit: {{ sum }}</h2>
+    </transition>
+    <hr>
+    <app-progress v-bind:val="numbers.length"
+                  v-bind:max="maxNumbers">
+    </app-progress>
+    <hr>
+    <button class="btn btn-success"
+            v-on:click="addNumber"
+            v-bind:disabled="done"
+    >
+      Add number
+    </button>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item"
+          v-for="number in numbers"
+      >
+        {{ number }}
+      </li>
+    </ul>
+  </div>
 </div>
-<hr>
-
-<div id="listsOfArrays">
-  <ol>
-    <li v-for="todo in todos">
-      {{todo.text}}
-    </li>
-  </ol>
-</div>
-<hr>
-
-<div id="events">
-  <p>{{message}}</p>
-  <button v-on:click="reverseMessage">Reverse message</button>
-</div>
-<hr>
-
-<div id="v-model">
-  <p>{{message}}</p>
-  <input v-model="message">
-</div>
-
-
-<div id="app">
-  <ol>
-    <todo-item v-for="item in groceryList"
-               v-bind:todo="item"
-               v-bind:key="item.id"
-    ></todo-item>
-  </ol>
-</div>
-
-
-
-<script src="./helloVue.js"></script>
+<script src="helloVue.js"></script>
 </body>
 </html>
-<script>
-  import TodoItem from '@/components/TodoItem';
-  export default {
-    components: {TodoItem}
-  }
-</script>
